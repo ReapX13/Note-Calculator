@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/png" href="../../../Media/book.png" />
+    <link rel="stylesheet" href="Style/style.css">
+    <title>Table des notes — Massar style</title>
+</head>
+<body>
+    <div class="container" role="region" aria-label="Table des notes">
+      <header>
+        <div class="title">
+          <div class="logo">MSR</div>
+          <div>
+            <h1>Table des notes — Massar</h1>
+            <p class="small">
+              Année scolaire: <strong>2024-2025</strong> · Classe:
+              <strong>Tronc Commun Sciences Français</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="controls" aria-hidden="false">
+          <input
+            id="search"
+            type="search"
+            placeholder="Rechercher matière..."
+          />
+          <button class="btn" id="exportBtn" title="Exporter en Image">
+            Exporter Image
+          </button>
+          <button class="btn ghost" id="resetBtn" title="Réinitialiser filtre">
+            Reset
+          </button>
+        </div>
+      </header>
+
+      <div class="table-wrap" role="table" aria-label="Notes table">
+        <table id="gradesTable">
+          <thead>
+            <tr>
+              <th data-key="subject">Matière ▲▼</th>
+              <th data-key="coef">Coef</th>
+              <th data-key="c1">Controle 1</th>
+              <th data-key="c2">Controle 2</th>
+              <th data-key="c3">Controle 3</th>
+              <th data-key="c4">Controle 4</th>
+              <th data-key="ac">Activité integré</th>
+              <th data-key="total">Totale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- sample data rows -->
+            <tr>
+              <td>MATH</td>
+              <td class="meta">5</td>
+              <td class="meta">
+                <input
+                  class="math-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="math-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="math-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="math-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="math-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="math-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>PC</td>
+              <td class="meta">4</td>
+              <td class="meta">
+                <input
+                  class="pc-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="pc-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="pc-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="pc-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="pc-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="pc-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>SVT</td>
+              <td class="meta">3</td>
+              <td class="meta">
+                <input
+                  class="svt-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="svt-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="svt-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="svt-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="svt-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="svt-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>FR</td>
+              <td class="meta">3</td>
+              <td class="meta">
+                <input
+                  class="fr-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="fr-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="fr-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="fr-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="fr-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="fr-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>AR</td>
+              <td class="meta">2</td>
+              <td class="meta">
+                <input
+                  class="ar-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ar-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ar-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ar-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ar-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="ar-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>HG</td>
+              <td class="meta">2</td>
+              <td class="meta">
+                <input
+                  class="hg-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="hg-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="hg-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="hg-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="hg-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="hg-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>EI</td>
+              <td class="meta">2</td>
+              <td class="meta">
+                <input
+                  class="ei-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ei-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ei-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ei-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ei-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="ei-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>EPS</td>
+              <td class="meta">1</td>
+              <td class="meta">
+                <input
+                  class="eps-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="eps-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="eps-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="eps-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="eps-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="eps-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>PH</td>
+              <td class="meta">2</td>
+              <td class="meta">
+                <input
+                  class="ph-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ph-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ph-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ph-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="ph-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="ph-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>EN</td>
+              <td class="meta">2</td>
+              <td class="meta">
+                <input
+                  class="en-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="en-c2-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="en-c3-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="en-c4-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta">
+                <input
+                  class="en-ac-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"><p class="en-total notes-totale">0.00</p></td>
+            </tr>
+            <tr>
+              <td>AC</td>
+              <td class="meta">1</td>
+              <td class="meta">
+                <input
+                  class="ac-c1-input notes-inputs"
+                  max="20"
+                  min="0"
+                  type="number"
+                />
+              </td>
+              <td class="meta"></td>
+              <td class="meta"></td>
+              <td class="meta"></td>
+              <td class="meta"></td>
+              <td class="meta"><p class="ac-total notes-totale">0.00</p></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="Total-section">
+          <p>Total: <span class="TTotal notes-totale">0.00</span></p>
+        </div>
+      </div>
+    </div>
+    <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.03); color: var(--muted); font-size: 0.85rem;">
+      <p>&copy; 2024-2025 · Author: <strong>ZAKARIA EL-HASSOUNI</strong></p>
+    </footer>
+    <script src="Script/script.js"></script>
+</body>
+</html>
