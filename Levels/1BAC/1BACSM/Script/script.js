@@ -105,18 +105,47 @@
           }, 100);
         }
         exportBtn.addEventListener("click", async () => {
+          const body = document.body;
           const tableWrap = document.querySelector(".table-wrap");
-          const canvas = await html2canvas(tableWrap, {
-            backgroundColor: "#0f1724",
-            scale: 2,
-            useCORS: true,
-          });
-          const link = document.createElement("a");
-          link.href = canvas.toDataURL("image/png");
-          link.download = "notes_export.png";
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
+          const table = document.querySelector("#gradesTable");
+          
+          // Save original styles
+          const originalBodyOverflow = body.style.overflow;
+          const originalTableWrapOverflow = tableWrap.style.overflow;
+          const originalTableMinWidth = table.style.minWidth;
+          
+          // Calculate proper dimensions
+          const tableWidth = table.scrollWidth;
+          const tableHeight = tableWrap.scrollHeight;
+          
+          // Temporarily adjust styles
+          body.style.overflow = "visible";
+          tableWrap.style.overflow = "visible";
+          table.style.minWidth = "0";
+          
+          try {
+            const canvas = await html2canvas(tableWrap, {
+              backgroundColor: "#0f1724",
+              scale: 2,
+              useCORS: true,
+              allowTaint: true,
+              scrollX: 0,
+              scrollY: 0,
+              windowHeight: Math.max(tableHeight, 800),
+              windowWidth: Math.max(tableWidth, 1200),
+            });
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "notes_export.png";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+          } finally {
+            // Restore original styles
+            body.style.overflow = originalBodyOverflow;
+            tableWrap.style.overflow = originalTableWrapOverflow;
+            table.style.minWidth = originalTableMinWidth;
+          }
         });
         // Reset filter
         resetBtn.addEventListener("click", () => {
