@@ -15,9 +15,10 @@
           { name: "AR", coef: 2, prefix: "ar" },
           { name: "HG", coef: 2, prefix: "hg" },
           { name: "EI", coef: 2, prefix: "ei" },
+          { name: "EPS", coef: 1, prefix: "eps" },
           { name: "PH", coef: 2, prefix: "ph" },
           { name: "EN", coef: 2, prefix: "en" },
-          { name: "EPS", coef: 1, prefix: "eps" },
+          { name: "INF", coef: 2, prefix: "inf" },
           { name: "AC", coef: 1, prefix: "ac" },
         ];
 
@@ -25,49 +26,53 @@
         function calculateSubjectTotal(prefix) {
           // AC (Activities Culturelles) only has one grade
           if (prefix === "ac") {
-            const c1Input = document.querySelector(`.${prefix}-c1-input`);
-            const c1Value = c1Input?.value === "" ? 0 : parseFloat(c1Input?.value) || 0;
+            const acInput = document.querySelector(`.${prefix}-c1-input`);
+            const acVal = acInput && acInput.value !== "" ? (parseFloat(acInput.value) || 0) : null;
             const totalEl = document.querySelector(`.${prefix}-total`);
-            if (totalEl) totalEl.textContent = c1Value.toFixed(2);
-            return c1Value;
+            if (totalEl) totalEl.textContent = acVal !== null ? acVal.toFixed(2) : "0.00";
+            return acVal;
           }
 
-          // All other subjects have 5 grades
-          const c1Input = document.querySelector(`.${prefix}-c1-input`);
-          const c2Input = document.querySelector(`.${prefix}-c2-input`);
-          const c3Input = document.querySelector(`.${prefix}-c3-input`);
-          const c4Input = document.querySelector(`.${prefix}-c4-input`);
-          const acInput = document.querySelector(`.${prefix}-ac-input`);
+          // All other subjects: average only non-empty inputs
+          const inputs = [
+            document.querySelector(`.${prefix}-c1-input`),
+            document.querySelector(`.${prefix}-c2-input`),
+            document.querySelector(`.${prefix}-c3-input`),
+            document.querySelector(`.${prefix}-c4-input`),
+            document.querySelector(`.${prefix}-ac-input`),
+          ];
 
-          // Check if at least one field has a value
-          const hasAnyValue = c1Input?.value !== "" || c2Input?.value !== "" || c3Input?.value !== "" || c4Input?.value !== "" || acInput?.value !== "";
+          let sum = 0;
+          let count = 0;
+          inputs.forEach((inp) => {
+            if (inp && inp.value !== "") {
+              const v = parseFloat(inp.value);
+              sum += isNaN(v) ? 0 : v;
+              count += 1;
+            }
+          });
 
-          const c1 = c1Input?.value === "" ? (hasAnyValue ? 20 : 0) : parseFloat(c1Input?.value) || 0;
-          const c2 = c2Input?.value === "" ? (hasAnyValue ? 20 : 0) : parseFloat(c2Input?.value) || 0;
-          const c3 = c3Input?.value === "" ? (hasAnyValue ? 20 : 0) : parseFloat(c3Input?.value) || 0;
-          const c4 = c4Input?.value === "" ? (hasAnyValue ? 20 : 0) : parseFloat(c4Input?.value) || 0;
-          const ac = acInput?.value === "" ? (hasAnyValue ? 20 : 0) : parseFloat(acInput?.value) || 0;
-
-          const total = (c1 + c2 + c3 + c4 + ac) / 5;
+          const total = count > 0 ? sum / count : 0;
           const totalEl = document.querySelector(`.${prefix}-total`);
-          if (totalEl) totalEl.textContent = total.toFixed(2);
+          if (totalEl) totalEl.textContent = count > 0 ? total.toFixed(2) : "0.00";
 
-          return total;
+          return count > 0 ? total : null;
         }
 
-        // Calculate grand total
+        // Calculate grand total (include all subjects; empty subjects count as 0)
         function calculateGrandTotal() {
           let weightedSum = 0;
           let totalCoef = 0;
 
           subjects.forEach((subject) => {
             const total = calculateSubjectTotal(subject.prefix);
-            weightedSum += total * subject.coef;
+            const t = total === null ? 0 : total;
+            weightedSum += t * subject.coef;
             totalCoef += subject.coef;
           });
 
           const grandTotal = totalCoef > 0 ? weightedSum / totalCoef : 0;
-          const grandTotalEl = document.querySelector(".TTotal");
+          const grandTotalEl = document.querySelector(`.TTotal`);
           if (grandTotalEl) grandTotalEl.textContent = grandTotal.toFixed(2);
         }
 
