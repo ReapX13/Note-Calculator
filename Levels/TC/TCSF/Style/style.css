@@ -212,28 +212,59 @@
       }
 
       /* responsive */
+      @media (max-width: 1024px) {
+        header { gap: 10px; margin-bottom: 12px; }
+        .controls { margin-top: 20px; gap: 6px; flex-wrap: wrap; }
+      }
       @media (max-width: 880px) {
-        .controls input[type="search"] {
-          min-width: 140px;
-        }
-        table {
-          min-width: 720px;
-        }
+        .controls input[type="search"] { min-width: 140px; }
+        table { min-width: 720px; }
+        header .title { gap: 8px; }
+        h1 { font-size: 1rem; }
+        p.small { font-size: 0.8rem; }
+      }
+      @media (max-width: 768px) {
+        body { padding: 16px; }
+        .logo { width: 40px; height: 40px; font-size: 0.9rem; }
+        h1 { font-size: 0.95rem; }
+        p.small { font-size: 0.75rem; }
+        .btn { padding: 6px 10px; font-size: 0.9rem; }
+        .Total-section { margin-top: 30px; font-size: 1rem; }
+        .notes-inputs { width: 55px; padding: 5px 6px; font-size: 0.85rem; }
+        th, td { padding: 10px 10px; font-size: 0.85rem; }
+        .container { padding: 14px; border-radius: 8px; }
+      }
+      @media (max-width: 640px) {
+        .controls { margin-top: 16px; gap: 6px; }
+        .btn { padding: 5px 8px; font-size: 0.85rem; }
+        table { min-width: 600px; }
+        .controls input[type="search"] { min-width: 120px; }
       }
       @media (max-width: 520px) {
-        header {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
-        }
-        .controls {
-          width: 100%;
-          justify-content: space-between;
-        }
-        .controls input[type="search"] {
-          flex: 1;
-          margin-right: 6px;
-        }
+        body { padding: 14px; }
+        header { flex-direction: column; align-items: flex-start; gap: 6px; }
+        header .title { gap: 8px; }
+        .logo { width: 36px; height: 36px; }
+        h1 { font-size: 0.9rem; }
+        p.small { font-size: 0.7rem; }
+        .controls { width: 100%; justify-content: space-between; margin-top: 12px; }
+        .controls input[type="search"] { flex: 1; margin-right: 6px; min-width: auto; }
+        .btn { padding: 4px 6px; font-size: 0.8rem; }
+        table { min-width: 480px; }
+        .notes-totale { font-size: 0.9rem; margin: 0 12px 0 0; }
+        .TTotal { font-size: 1rem; padding: 4px 8px; }
+        .notes-inputs { width: 50px; padding: 4px 5px; font-size: 0.8rem; }
+        th, td { padding: 8px 6px; font-size: 0.75rem; }
+        .container { padding: 12px; }
+      }
+      @media (max-width: 360px) {
+        body { padding: 10px 8px; }
+        .container { padding: 8px; }
+        h1 { font-size: 0.8rem; }
+        p.small { font-size: 0.65rem; }
+        .btn { padding: 3px 5px; font-size: 0.75rem; }
+        th, td { padding: 6px 4px; font-size: 0.7rem; }
+        .notes-inputs { width: 45px; }
       }
 
       /* Back button (top-left) */
@@ -254,8 +285,20 @@
         font-size: 1.25rem;
         box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
         cursor: pointer;
-        transition: transform 0.15s ease, opacity 0.15s ease;
+        transition: transform 0.15s ease, opacity 0.15s ease, width 0.2s ease, height 0.2s ease;
       }
       .back-btn:hover { transform: translateY(-3px); opacity: 0.98; }
-      @media (max-width: 520px) { .back-btn { width:44px;height:44px;font-size:1rem;left:10px;top:10px; } }
+      .back-btn:active { transform: translateY(-1px); }
       .back-btn img { width: 22px; height: 22px; display: block; }
+      @media (max-width: 768px) {
+        .back-btn { width: 48px; height: 48px; left: 12px; top: 12px; }
+        .back-btn img { width: 20px; height: 20px; }
+      }
+      @media (max-width: 640px) {
+        .back-btn { width: 44px; height: 44px; left: 11px; top: 11px; }
+        .back-btn img { width: 18px; height: 18px; }
+      }
+      @media (max-width: 360px) {
+        .back-btn { width: 36px; height: 36px; left: 8px; top: 8px; box-shadow: 0 4px 12px rgba(2, 6, 23, 0.5); }
+        .back-btn img { width: 14px; height: 14px; }
+      }
