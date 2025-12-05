@@ -258,4 +258,4 @@
       }
       .back-btn:hover { transform: translateY(-3px); opacity: 0.98; }
       @media (max-width: 520px) { .back-btn { width:44px;height:44px;font-size:1rem;left:10px;top:10px; } }
-      .back-btn svg { width: 22px; height: 22px; color: #052026; }
+      .back-btn img { width: 22px; height: 22px; display: block; }
